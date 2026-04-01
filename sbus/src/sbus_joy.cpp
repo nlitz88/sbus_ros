@@ -29,15 +29,32 @@ SbusJoy::SbusJoy(const rclcpp::NodeOptions& options) : Node("sbus_joy", options)
 
 void SbusJoy::sbusPacketCallback(const sbus_interfaces::msg::SbusPacket::SharedPtr sbus_msg)
 {
-  RCLCPP_INFO_STREAM(this->get_logger(), "Sbus ch1 value: " << sbus_msg->ch1);
-  sensor_msgs::msg::Joy joy_msg;
-  joy_msg.header.stamp = this->get_clock()->now();
 
-  joy_msg.axes[0] = sbus_msg->ch1;
-  joy_msg.axes[1] = sbus_msg->ch2;
+  std::unique_ptr<sensor_msgs::msg::Joy> joy_msg_ptr = std::make_unique<sensor_msgs::msg::Joy>();
+  joy_msg_ptr->header.stamp = this->get_clock()->now();
+
+  joy_msg_ptr->axes.resize(18);
+  joy_msg_ptr->axes.at(0) = sbus_msg->ch1;
+  joy_msg_ptr->axes.at(1) = sbus_msg->ch2;
+  joy_msg_ptr->axes.at(2) = sbus_msg->ch3;
+  joy_msg_ptr->axes.at(3) = sbus_msg->ch4;
+  joy_msg_ptr->axes.at(4) = sbus_msg->ch5;
+  joy_msg_ptr->axes.at(5) = sbus_msg->ch6;
+  joy_msg_ptr->axes.at(6) = sbus_msg->ch7;
+  joy_msg_ptr->axes.at(7) = sbus_msg->ch8;
+  joy_msg_ptr->axes.at(8) = sbus_msg->ch9;
+  joy_msg_ptr->axes.at(9) = sbus_msg->ch10;
+  joy_msg_ptr->axes.at(10) = sbus_msg->ch11;
+  joy_msg_ptr->axes.at(11) = sbus_msg->ch12;
+  joy_msg_ptr->axes.at(12) = sbus_msg->ch13;
+  joy_msg_ptr->axes.at(13) = sbus_msg->ch14;
+  joy_msg_ptr->axes.at(14) = sbus_msg->ch15;
+  joy_msg_ptr->axes.at(15) = sbus_msg->ch16;
+  joy_msg_ptr->axes.at(16) = sbus_msg->ch17;
+  joy_msg_ptr->axes.at(17) = sbus_msg->ch18;
   // TODO: Fill out the rest of the joy message.
 
-  joy_pub_->publish(joy_msg);
+  joy_pub_->publish(std::move(joy_msg_ptr));
 }
 
 }  // namespace sbus
