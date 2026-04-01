@@ -10,25 +10,38 @@ find_package(ament_cmake REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 find_package(rclcpp REQUIRED)
+# Per https://docs.ros.org/en/jazzy/Tutorials/Intermediate/Writing-a-Composable-Node.html#cmake-changes
 find_package(rclcpp_components REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(sbus_interfaces REQUIRED)
 
-add_executable(sbus_joy src/sbus_joy.cpp)
-ament_target_dependencies(sbus_joy
+# For context on how to set up CMakeLists to build components, see
+# https://docs.ros.org/en/jazzy/Tutorials/Intermediate/Writing-a-Composable-Node.html#cmake-changes
+
+# Define how to build, install, and export the sbus joy component.
+add_library(sbus_joy_component SHARED src/sbus_joy.cpp)
+ament_target_dependencies(sbus_joy_component
   rclcpp
   rclcpp_components
   sensor_msgs
   sbus_interfaces
 )
-
-target_include_directories(sbus_joy PUBLIC
+target_include_directories(sbus_joy_component PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include/${PROJECT_NAME}>)
-target_compile_features(sbus_joy PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
-
-install(TARGETS sbus_joy
-  DESTINATION lib/${PROJECT_NAME})
+target_compile_features(sbus_joy_component PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+rclcpp_components_register_node(
+    sbus_joy_component
+    PLUGIN "sbus::SbusJoy"
+    EXECUTABLE sbus_joy
+)
+ament_export_targets(sbus_joy_component)
+install(TARGETS sbus_joy_component
+        EXPORT sbus_joy_component
+        ARCHIVE DESTINATION lib
+        LIBRARY DESTINATION lib
+        RUNTIME DESTINATION bin
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
