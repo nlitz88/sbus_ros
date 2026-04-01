@@ -13,13 +13,26 @@ SbusJoy::SbusJoy(const rclcpp::NodeOptions& options) : Node("sbus_joy", options)
 {
   // Declare parameters
 
+  // Allocate sbus subscriber
+  sbus_sub_ = this->create_subscription<sbus_interfaces::msg::SbusPacket>(
+      "sbus", 10, std::bind(&SbusJoy::sbusPacketCallback, this, std::placeholders::_1));
   // Allocate joy publisher
   joy_pub_ = this->create_publisher<sensor_msgs::msg::Joy>("joy", 10);
+
+  RCLCPP_INFO_STREAM(this->get_logger(), "sbus joy node initialized!");
 }
 
 void SbusJoy::sbusPacketCallback(const sbus_interfaces::msg::SbusPacket::SharedPtr sbus_msg)
 {
   RCLCPP_INFO_STREAM(this->get_logger(), "Sbus ch1 value: " << sbus_msg->ch1);
+  sensor_msgs::msg::Joy joy_msg;
+  joy_msg.header.stamp = this->get_clock()->now();
+
+  joy_msg.axes[0] = sbus_msg->ch1;
+  joy_msg.axes[1] = sbus_msg->ch2;
+  // TODO: Fill out the rest of the joy message.
+
+  joy_pub_->publish(joy_msg);
 }
 
 }  // namespace sbus

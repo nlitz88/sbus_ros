@@ -24,24 +24,21 @@ class SbusJoy : public rclcpp::Node
 {
 public:
   /**
-   * @brief Constructor for the SbusJoy node.
-   * @param options Additional options to control the creation of the node.
+   * @brief Constructor for the SbusJoy node
+   * @param options Additional options to control the creation of the node
    */
   explicit SbusJoy(const rclcpp::NodeOptions& options);
 
-  /**
-   * @brief SbusJoy node destructor.
-   */
-  ~SbusJoy();
-
 protected:
   /**
-   * @brief Sbus packet callback.
-   * @param sbus_msg Sbus packet packed into an SbusPacket message.
+   * @brief Sbus packet callback
+   * @param sbus_msg Sbus packet packed into an SbusPacket message
    */
   void sbusPacketCallback(const sbus_interfaces::msg::SbusPacket::SharedPtr sbus_msg);
 
-  // Joy publisher.
+  // Sbus subscriber
+  rclcpp::Subscription<sbus_interfaces::msg::SbusPacket>::SharedPtr sbus_sub_;
+  // Joy publisher
   rclcpp::Publisher<sensor_msgs::msg::Joy>::SharedPtr joy_pub_;
 };
 
