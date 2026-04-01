@@ -40,6 +40,9 @@ protected:
    * @param sbus_msg Sbus packet packed into an SbusPacket message.
    */
   void sbusPacketCallback(const sbus_interfaces::msg::SbusPacket::SharedPtr sbus_msg);
+
+  // Joy publisher.
+  rclcpp::Publisher<sensor_msgs::msg::Joy>::SharedPtr joy_pub_;
 };
 
 }  // namespace sbus
