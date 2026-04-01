@@ -13,11 +13,18 @@ SbusJoy::SbusJoy(const rclcpp::NodeOptions& options) : Node("sbus_joy", options)
 {
   // Declare parameters
 
+  // Enable overriding for specific policies (history, depth, reliability, etc.)
+  rclcpp::PublisherOptions pub_options;
+  pub_options.qos_overriding_options = rclcpp::QosOverridingOptions::with_default_policies();
+
+  rclcpp::SubscriptionOptions sub_options;
+  sub_options.qos_overriding_options = rclcpp::QosOverridingOptions::with_default_policies();
+
   // Allocate sbus subscriber
   sbus_sub_ = this->create_subscription<sbus_interfaces::msg::SbusPacket>(
-      "sbus", 10, std::bind(&SbusJoy::sbusPacketCallback, this, std::placeholders::_1));
+      "sbus", 1, std::bind(&SbusJoy::sbusPacketCallback, this, std::placeholders::_1), sub_options);
   // Allocate joy publisher
-  joy_pub_ = this->create_publisher<sensor_msgs::msg::Joy>("joy", 10);
+  joy_pub_ = this->create_publisher<sensor_msgs::msg::Joy>("joy", 1, pub_options);
 
   RCLCPP_INFO_STREAM(this->get_logger(), "sbus joy node initialized!");
 }
