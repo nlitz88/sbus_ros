@@ -1,10 +1,6 @@
-#include <cstdio>
 
-int main(int argc, char ** argv)
-{
-  (void) argc;
-  (void) argv;
+#include <sbus/sbus_joy.hpp>
 
-  printf("hello world sbus package\n");
+int main() {
   return 0;
 }

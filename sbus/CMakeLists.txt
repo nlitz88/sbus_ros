@@ -9,9 +9,19 @@ endif()
 find_package(ament_cmake REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
-# find_package(<dependency> REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(rclcpp_components REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(sbus_interfaces REQUIRED)
 
 add_executable(sbus_joy src/sbus_joy.cpp)
+ament_target_dependencies(sbus_joy
+  rclcpp
+  rclcpp_components
+  sensor_msgs
+  sbus_interfaces
+)
+
 target_include_directories(sbus_joy PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include/${PROJECT_NAME}>)
