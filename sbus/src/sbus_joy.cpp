@@ -11,8 +11,6 @@ namespace sbus
 {
 SbusJoy::SbusJoy(const rclcpp::NodeOptions& options) : Node("sbus_joy", options)
 {
-  // Declare parameters
-
   // Enable overriding for specific policies (history, depth, reliability, etc.)
   rclcpp::PublisherOptions pub_options;
   pub_options.qos_overriding_options = rclcpp::QosOverridingOptions::with_default_policies();
