@@ -29,7 +29,6 @@ SbusJoy::SbusJoy(const rclcpp::NodeOptions& options) : Node("sbus_joy", options)
 
 void SbusJoy::sbusPacketCallback(const sbus_interfaces::msg::SbusPacket::SharedPtr sbus_msg)
 {
-
   std::unique_ptr<sensor_msgs::msg::Joy> joy_msg_ptr = std::make_unique<sensor_msgs::msg::Joy>();
   joy_msg_ptr->header.stamp = this->get_clock()->now();
 
@@ -52,7 +51,6 @@ void SbusJoy::sbusPacketCallback(const sbus_interfaces::msg::SbusPacket::SharedP
   joy_msg_ptr->axes.at(15) = sbus_msg->ch16;
   joy_msg_ptr->axes.at(16) = sbus_msg->ch17;
   joy_msg_ptr->axes.at(17) = sbus_msg->ch18;
-  // TODO: Fill out the rest of the joy message.
 
   joy_pub_->publish(std::move(joy_msg_ptr));
 }
