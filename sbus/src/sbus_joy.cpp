@@ -32,17 +32,20 @@ void SbusJoy::sbusPacketCallback(const sbus_interfaces::msg::SbusPacket::SharedP
   std::unique_ptr<sensor_msgs::msg::Joy> joy_msg_ptr = std::make_unique<sensor_msgs::msg::Joy>();
   joy_msg_ptr->header.stamp = this->get_clock()->now();
 
+  // TODO: Adjust for controller deadzones!
+  // Could add a parameter for the deadzone for each channel.
+
   joy_msg_ptr->axes.resize(18);
-  joy_msg_ptr->axes.at(0) = sbus_msg->ch1;
-  joy_msg_ptr->axes.at(1) = sbus_msg->ch2;
-  joy_msg_ptr->axes.at(2) = sbus_msg->ch3;
-  joy_msg_ptr->axes.at(3) = sbus_msg->ch4;
-  joy_msg_ptr->axes.at(4) = sbus_msg->ch5;
-  joy_msg_ptr->axes.at(5) = sbus_msg->ch6;
-  joy_msg_ptr->axes.at(6) = sbus_msg->ch7;
-  joy_msg_ptr->axes.at(7) = sbus_msg->ch8;
-  joy_msg_ptr->axes.at(8) = sbus_msg->ch9;
-  joy_msg_ptr->axes.at(9) = sbus_msg->ch10;
+  joy_msg_ptr->axes.at(0) = sbus_msg->ch1 - 1000;
+  joy_msg_ptr->axes.at(1) = sbus_msg->ch2 - 1000;
+  joy_msg_ptr->axes.at(2) = sbus_msg->ch3 - 988;
+  joy_msg_ptr->axes.at(3) = sbus_msg->ch4 - 998;
+  joy_msg_ptr->axes.at(4) = sbus_msg->ch5 - 1000;
+  joy_msg_ptr->axes.at(5) = sbus_msg->ch6 - 1000;
+  joy_msg_ptr->axes.at(6) = sbus_msg->ch7 - 200;
+  joy_msg_ptr->axes.at(7) = sbus_msg->ch8 - 200;
+  joy_msg_ptr->axes.at(8) = sbus_msg->ch9 - 1000;
+  joy_msg_ptr->axes.at(9) = sbus_msg->ch10 - 1000;
   joy_msg_ptr->axes.at(10) = sbus_msg->ch11;
   joy_msg_ptr->axes.at(11) = sbus_msg->ch12;
   joy_msg_ptr->axes.at(12) = sbus_msg->ch13;
