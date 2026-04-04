@@ -40,6 +40,27 @@ protected:
   rclcpp::Subscription<sbus_interfaces::msg::SbusPacket>::SharedPtr sbus_sub_;
   // Joy publisher
   rclcpp::Publisher<sensor_msgs::msg::Joy>::SharedPtr joy_pub_;
+
+  /**
+   * @brief Configurable offset for each channel. Useful for making the resting position of a
+   * controller potentiometer register as 0.
+   */
+  int ch1_deadzone_offset_;
+  int ch2_deadzone_offset_;
+  int ch3_deadzone_offset_;
+  int ch4_deadzone_offset_;
+  int ch5_deadzone_offset_;
+  int ch6_deadzone_offset_;
+  int ch7_deadzone_offset_;
+  int ch8_deadzone_offset_;
+  int ch9_deadzone_offset_;
+  int ch10_deadzone_offset_;
+  int ch11_deadzone_offset_;
+  int ch12_deadzone_offset_;
+  int ch13_deadzone_offset_;
+  int ch14_deadzone_offset_;
+  int ch15_deadzone_offset_;
+  int ch16_deadzone_offset_;
 };
 
 }  // namespace sbus
