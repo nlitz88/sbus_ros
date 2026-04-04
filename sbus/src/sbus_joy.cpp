@@ -36,22 +36,22 @@ SbusJoy::SbusJoy(const rclcpp::NodeOptions& options)
   sub_options.qos_overriding_options = rclcpp::QosOverridingOptions::with_default_policies();
 
   // Declare parameters
-  ch1_deadzone_offset_ = this->declare_parameter("ch1_deadzone_offset", 0);
-  ch2_deadzone_offset_ = this->declare_parameter("ch2_deadzone_offset", 0);
-  ch3_deadzone_offset_ = this->declare_parameter("ch3_deadzone_offset", 0);
-  ch4_deadzone_offset_ = this->declare_parameter("ch4_deadzone_offset", 0);
-  ch5_deadzone_offset_ = this->declare_parameter("ch5_deadzone_offset", 0);
-  ch6_deadzone_offset_ = this->declare_parameter("ch6_deadzone_offset", 0);
-  ch7_deadzone_offset_ = this->declare_parameter("ch7_deadzone_offset", 0);
-  ch8_deadzone_offset_ = this->declare_parameter("ch8_deadzone_offset", 0);
-  ch9_deadzone_offset_ = this->declare_parameter("ch9_deadzone_offset", 0);
-  ch10_deadzone_offset_ = this->declare_parameter("ch10_deadzone_offset", 0);
-  ch11_deadzone_offset_ = this->declare_parameter("ch11_deadzone_offset", 0);
-  ch12_deadzone_offset_ = this->declare_parameter("ch12_deadzone_offset", 0);
-  ch13_deadzone_offset_ = this->declare_parameter("ch13_deadzone_offset", 0);
-  ch14_deadzone_offset_ = this->declare_parameter("ch14_deadzone_offset", 0);
-  ch15_deadzone_offset_ = this->declare_parameter("ch15_deadzone_offset", 0);
-  ch16_deadzone_offset_ = this->declare_parameter("ch16_deadzone_offset", 0);
+  ch1_deadzone_offset_ = this->declare_parameter<int>("ch1_deadzone_offset", 0);
+  ch2_deadzone_offset_ = this->declare_parameter<int>("ch2_deadzone_offset", 0);
+  ch3_deadzone_offset_ = this->declare_parameter<int>("ch3_deadzone_offset", 0);
+  ch4_deadzone_offset_ = this->declare_parameter<int>("ch4_deadzone_offset", 0);
+  ch5_deadzone_offset_ = this->declare_parameter<int>("ch5_deadzone_offset", 0);
+  ch6_deadzone_offset_ = this->declare_parameter<int>("ch6_deadzone_offset", 0);
+  ch7_deadzone_offset_ = this->declare_parameter<int>("ch7_deadzone_offset", 0);
+  ch8_deadzone_offset_ = this->declare_parameter<int>("ch8_deadzone_offset", 0);
+  ch9_deadzone_offset_ = this->declare_parameter<int>("ch9_deadzone_offset", 0);
+  ch10_deadzone_offset_ = this->declare_parameter<int>("ch10_deadzone_offset", 0);
+  ch11_deadzone_offset_ = this->declare_parameter<int>("ch11_deadzone_offset", 0);
+  ch12_deadzone_offset_ = this->declare_parameter<int>("ch12_deadzone_offset", 0);
+  ch13_deadzone_offset_ = this->declare_parameter<int>("ch13_deadzone_offset", 0);
+  ch14_deadzone_offset_ = this->declare_parameter<int>("ch14_deadzone_offset", 0);
+  ch15_deadzone_offset_ = this->declare_parameter<int>("ch15_deadzone_offset", 0);
+  ch16_deadzone_offset_ = this->declare_parameter<int>("ch16_deadzone_offset", 0);
 
   // Allocate sbus subscriber
   sbus_sub_ = this->create_subscription<sbus_interfaces::msg::SbusPacket>(
