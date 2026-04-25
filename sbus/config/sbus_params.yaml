@@ -1,0 +1,54 @@
+sbus_joy:
+  ros__parameters:
+
+    # 1. Define the list of virtual buttons you want to create
+    button_mappings: ["button1", "button2", "armed_button"]
+
+    # 2. Configure "button1" (Top position of a rocker on CH5)
+    button1:
+      channel: 4          # 0-indexed: CH5 is index 4
+      threshold: 1600
+      direction: "above"
+
+    # 3. Configure "button2" (Bottom position of the same rocker on CH5)
+    button2:
+      channel: 4          # Same channel as above!
+      threshold: 400
+      direction: "below"
+
+    # 4. Configure "armed_button" (Toggle switch on CH6)
+    armed_button:
+      channel: 5          # 0-indexed: CH6 is index 5
+      threshold: 1500
+      direction: "above"
+
+    # Configure axis channel deadzones.
+    ch1_deadzone_offset: 1000
+    ch2_deadzone_offset: 1000
+    ch3_deadzone_offset: 988
+    ch4_deadzone_offset: 998
+    ch5_deadzone_offset: 1000
+    ch6_deadzone_offset: 1000
+    ch7_deadzone_offset: 200
+    ch8_deadzone_offset: 200
+    ch9_deadzone_offset: 1000
+    ch10_deadzone_offset: 1000
+    ch11_deadzone_offset: 0
+    ch12_deadzone_offset: 0
+    ch13_deadzone_offset: 0
+    ch14_deadzone_offset: 0
+    ch15_deadzone_offset: 0
+    ch16_deadzone_offset: 0
+
+    # QOS parameters
+    qos_overrides./joy.publisher.depth: 1
+    qos_overrides./joy.publisher.history: keep_last
+    qos_overrides./joy.publisher.reliability: reliable
+    qos_overrides./parameter_events.publisher.depth: 1000
+    qos_overrides./parameter_events.publisher.durability: volatile
+    qos_overrides./parameter_events.publisher.history: keep_last
+    qos_overrides./parameter_events.publisher.reliability: reliable
+    qos_overrides./sbus_rx.subscription.depth: 1
+    qos_overrides./sbus_rx.subscription.history: keep_last
+    qos_overrides./sbus_rx.subscription.reliability: best_effort
+    start_type_description_service: true

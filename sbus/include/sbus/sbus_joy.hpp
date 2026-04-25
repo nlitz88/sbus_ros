@@ -2,7 +2,7 @@
  * @file sbus_joy.hpp
  * @author Nathan Litzinger (nlitz88@gmail.com)
  * @brief SBUS Joy Node declaration
- * @version 0.1
+ * @version 1.1.0
  * @date 2026-03-31
  *
  * @copyright Copyright (c) 2026
@@ -62,6 +62,22 @@ protected:
   int ch15_deadzone_offset_;
   int ch16_deadzone_offset_;
 };
+
+/**
+ * @brief Class for defining virtual buttons derived from an SBUS channel.
+ */
+struct VirtualButton
+{
+  std::string name;
+  int channel;
+  int threshold;
+  bool trigger_above;
+};
+
+/**
+ * @brief collection of configured virtual buttons.
+ */
+std::vector<VirtualButton> button_configs_;
 
 }  // namespace sbus
 
